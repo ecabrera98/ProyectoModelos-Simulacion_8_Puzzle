@@ -10,7 +10,7 @@ class puzzle {
 		int p[3][3];
 		int f, g;
 
-		puzzle(string st) {
+		puzzle(string st) { //coloca el string en una matriz (puzzle)
 			f = 0;
 			g = 0;
 			int k=0;
@@ -21,7 +21,7 @@ class puzzle {
 			}
 		}
 
-		void display() {
+		void display() { //imprime el puzzle
 		    for(int i=0; i<3; i++) {
 		        for(int j=0; j<3; j++) {
 		            cout<<p[i][j]<<" ";
@@ -30,7 +30,7 @@ class puzzle {
 		    }
 		}
 
-		string to_string() {
+		string to_string() { //transforma el puzzle en string, separa con 0 cada número
 		    string st = "123456780";
 		    int k=0;
 		    for(int i=0; i<3; i++) {
