@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
     int depth;
-	int rand_gen_initial_states = 10;
+	int rand_gen_initial_states = 1;
 	cout<<"Ingrese la profundidad: ";
 	cin>>depth;
 
