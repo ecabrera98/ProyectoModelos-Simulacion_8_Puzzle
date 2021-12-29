@@ -24,7 +24,7 @@ class puzzle {
 			}
 		}
 
-		void desplegar() { //función que imprime el puzzle
+		void desplegar() { //función que imprime el tablero del 8 Puzzle
 		    for(int i=0; i<3; i++) {
 		        for(int j=0; j<3; j++) {
 		            cout<<p[i][j]<<" ";
@@ -57,7 +57,9 @@ class puzzle {
 			return count;
 		}
 
-		int distancia_manhattan() {
+		int distancia_manhattan() {//aplicacion del método de la Distancia Manhattan
+                                   //métrica de distancia entre dos puntos en un espacio vectorial de dimensión N
+                                   //es la suma de la diferencia absoluta entre las medidas en todas las dimensiones de dos puntos
 			int dist = 0;
 			for(int i=0; i<3; i++) {
 				for(int j=0; j<3; j++) {
@@ -85,7 +87,7 @@ class puzzle {
 			return 0;
 		}
 
-		void update_f(int n) {//generación de la función f(n) = g(n) + h(n) mediante el uso de DistMatch y Distancia Manhathan
+		int funcion_n(int n) {//generación de la función f(n) = g(n) + h(n) mediante el uso de DistMatch y Distancia Manhathan
 			if(!n) {
 				f = 0;
 				int mismatch_dis = distancia_mismatch();
@@ -96,25 +98,29 @@ class puzzle {
 				int manh_distancia = distancia_manhattan();
 				f = manh_distancia + g;
 			}
+			return f;
 		}
 
-		void initialize() {// inicializar f(n) y g(n) a 0 nuevamente para futuras asignaciones
+		void initialiciar_f_g() {// inicializar f(n) y g(n) a 0 nuevamente para futuras asignaciones
 			f = 0;
 			g = 0;
 		}
 
 };
 
-bool operator<(const puzzle& p1, const puzzle& p2) {
+bool operator<(const puzzle& p1, const puzzle& p2) { //operador booleano para los estados del 8 PUZZLE
+                                                     //valida si un estado se aleja demasiado del estado objetivo
     return p1.f > p2.f;
 }
 
 priority_queue <puzzle> frontera; //generación de la estructura de datos: cola de prioridad
+
 unordered_set <string> visitados; //utilización de un conjunto desordenado para
                                   //almacenar elementos únicos sin ningún orden en particular
                                   //en este caso para los nodos visitados
 
-int m, no_nodos; //declaración de las variables tamaño "n" y número de nodos
+
+int m, no_nodos; //declaración de las variables tamaño "m" y número de nodos
 
 bool isValid(int i, int j) {//validacion de las posiciones de la matriz
 	if(i>=0 && j>=0 && i<3 && j<3)
@@ -133,61 +139,63 @@ puzzle movimientos(puzzle s, int i1, int j1, int i2, int j2) {//función auxilia
 	return new_puz;
 }
 
-void expandir_arbol(puzzle s, queue <puzzle> &colaFrontera) {
+void expandir_arbol(puzzle s, queue <puzzle> &colaFrontera) { //Utilización del algoritmo A *, el cual realiza
+                                                              //un seguimiento de cada nodo visitado,
+                                                              //ignorando los nodos que ya se visitaron,
 	for(int i=0; i<3; i++) {
 		for(int j=0; j<3; j++) {
 			if(s.p[i][j] == 0) {
-				if(isValid(i-1, j)) {
-					puzzle new_puz = movimientos(s, i, j, i-1, j);
-					if(visitados.find(new_puz.to_string()) == visitados.end()) {
-						visitados.insert(new_puz.to_string());
-						new_puz.g++;
+				if(isValid(i-1, j)) { //moverse  una posición a la izquierda
+					puzzle aux_puz = movimientos(s, i, j, i-1, j);
+					if(visitados.find(aux_puz.to_string()) == visitados.end()) {
+						visitados.insert(aux_puz.to_string());
+						aux_puz.g++;
 						no_nodos++;
-						colaFrontera.push(new_puz);
+						colaFrontera.push(aux_puz);
 					}
 				}
-				if(isValid(i+1, j)) {
-					puzzle new_puz = movimientos(s, i, j, i+1, j);
-					if(visitados.find(new_puz.to_string()) == visitados.end()) {
-						visitados.insert(new_puz.to_string());
-						new_puz.g++;
+				if(isValid(i+1, j)) { //moverse  una posición a la derecha
+					puzzle aux_puz = movimientos(s, i, j, i+1, j);
+					if(visitados.find(aux_puz.to_string()) == visitados.end()) {
+						visitados.insert(aux_puz.to_string());
+						aux_puz.g++;
 						no_nodos++;
-						colaFrontera.push(new_puz);
+						colaFrontera.push(aux_puz);
 					}
 				}
-				if(isValid(i, j-1)) {
-					puzzle new_puz = movimientos(s, i, j, i, j-1);
-					if(visitados.find(new_puz.to_string()) == visitados.end()) {
-						visitados.insert(new_puz.to_string());
-						new_puz.g++;
+				if(isValid(i, j-1)) {//moverse una posición hacia abajo
+					puzzle aux_puz = movimientos(s, i, j, i, j-1);
+					if(visitados.find(aux_puz.to_string()) == visitados.end()) {
+						visitados.insert(aux_puz.to_string());
+						aux_puz.g++;
 						no_nodos++;
-						colaFrontera.push(new_puz);
+						colaFrontera.push(aux_puz);
 					}
 				}
-				if(isValid(i, j+1)) {
-					puzzle new_puz = movimientos(s, i, j, i, j+1);
-					if(visitados.find(new_puz.to_string()) == visitados.end()) {
-						visitados.insert(new_puz.to_string());
-						new_puz.g++;
+				if(isValid(i, j+1)) {//moverse una posición hacia arriba
+					puzzle aux_puz = movimientos(s, i, j, i, j+1);
+					if(visitados.find(aux_puz.to_string()) == visitados.end()) {
+						visitados.insert(aux_puz.to_string());
+						aux_puz.g++;
 						no_nodos++;
-						colaFrontera.push(new_puz);
+						colaFrontera.push(aux_puz);
 					}
 				}
 
 			}
 		}
 	}
+	cout<<"Estado Actual: "<<endl;  //impresión de los diferentes estados generados
 	s.desplegar();
-
 }
 
-queue <puzzle> expasion_por_profundidad(puzzle s, int depth) {
+queue <puzzle> expasion_por_profundidad(puzzle s, int prof) {
 	queue <puzzle> temp1;
 	expandir_arbol(s, temp1);
 	queue <puzzle> temp2(temp1);
 	queue <puzzle> temp3;
-	depth--;
-	while(depth>0) {
+	prof--;
+	while(prof>0) {
 		while(!temp2.empty()) {
 			puzzle c = temp2.front();
 			temp2.pop();
@@ -198,7 +206,7 @@ queue <puzzle> expasion_por_profundidad(puzzle s, int depth) {
 				temp4.pop();
 			}
 		}
-		depth--;
+		prof--;
 		while(!temp3.empty()) {
 			temp2.push(temp3.front());
 			temp3.pop();
@@ -207,45 +215,52 @@ queue <puzzle> expasion_por_profundidad(puzzle s, int depth) {
 	return temp1;
 }
 
-puzzle comenzar_8PUZZLE(puzzle s, int h, int depth) {
+puzzle comenzar_8PUZZLE(puzzle s, int n, int prof) {//metodo principal del juego 8 PUZZLE
+	//inicializamos las variables
 	m = 0;
 	no_nodos = 0;
-	s.initialize();
+	s.initialiciar_f_g();
 	visitados.clear();
 	visitados.insert(s.to_string());
 	frontera = priority_queue <puzzle>();
 
+	//realizamos operaciones del algoritmo A* mientras el tablero sea diferentes del estado objetivo
 	while(!s.estado_objetivo()) {
-		queue <puzzle> mod_exp_result = expasion_por_profundidad(s, depth);
+		queue <puzzle> aux_puzzle = expasion_por_profundidad(s, prof);
 		deque <puzzle> temp;
-		while(!mod_exp_result.empty()) {
-			temp.push_back(mod_exp_result.front());
-			mod_exp_result.pop();
+		while(!aux_puzzle.empty()) {
+			temp.push_back(aux_puzzle.front());
+			aux_puzzle.pop();
 		}
-		for(int i = 0; i < temp.size(); i++) {
-			temp[i].update_f(h);
+		for(int i = 0; i < temp.size(); i++) {//recorrer los posibles movimientos
+			temp[i].funcion_n(n);
+			cout<<"f(n): "<<temp[i].funcion_n(n)<<endl;
+		    cout<<endl;
 			frontera.push(temp[i]);
 			if(frontera.size() > m) {
 				m = frontera.size();
 			}
 		}
 		if(!frontera.empty()) {
-			s = frontera.top();
-			frontera.pop();
+			s = frontera.top();//retornamos el valor más reciente de la frontera
+			frontera.pop();//asignamos ese valos a la frontera
 		}
 		else break;
-		// g++;
+		cout<<"Mejor f(n): "<<s.funcion_n(n)<<endl; //imprimimos el mejor f(n) encontrado
+		cout<<endl;
 	}
-	if(s.estado_objetivo())
-    {
-        s.desplegar();
+	if(s.estado_objetivo()){  //si ya se llega al estado objetivo "12345678" hemos ganado
 		cout<<"Estado objetivo alcanzado!"<<endl;
-    }
-	else
-		cout<<"Estado objetivo no alcanzado!"<<endl;
 		s.desplegar();
+    }
 
-	cout<<"Heurística : "<<m<<endl;
+	else{ //caso contrario seguimos buscándo hasta encontrarlo
+	   cout<<"Estado objetivo no alcanzado!"<<endl;
+		s.desplegar();
+	}
+
+
+	cout<<"Número de estados : "<<m<<endl;
 	cout<<"Número de nodos: "<<no_nodos<<endl;
 	return s;
 }
