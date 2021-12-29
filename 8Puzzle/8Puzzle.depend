@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1639259352 source:/home/daniel/Documents/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/main.cpp
+1640715738 source:/home/daniel/Documents/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/main.cpp
 	<iostream>
 	"header.h"
 
-1639259383 /home/daniel/Documents/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/header.h
-	<bits/stdc++.h>
+1640716246 /home/daniel/Documents/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/header.h
+	<queue>
+	<unordered_set>
 

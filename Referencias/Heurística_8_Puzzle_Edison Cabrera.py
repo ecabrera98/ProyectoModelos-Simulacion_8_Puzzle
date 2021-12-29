@@ -141,7 +141,8 @@ if __name__ == "__main__":
   estado_meta.estado   = list("12345678 ")
 
   # ESTADO INICIAL Y PARAMETROS
-  estado_inicial.estado = list(" 74526831")
+  #estado_inicial.estado = list(" 74526831")
+  estado_inicial.estado = list("548 16327")
   estado_inicial.h = estado_inicial.distanciaManhatan(estado_meta)
   estado_inicial.g = 0
   estado_inicial.explorado = 1

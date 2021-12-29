@@ -1,35 +1,52 @@
+/*
+PERÍODO ACADÉMICO: 2021 B
+ASIGNATURA: Modelos y Simulación
+PROFESOR: Phd. José Lucio
+FECHA DE ENTREGA: 13/01/2022
+Autores:  Cabrera Edison
+          Gallardo Erick
+          Garcia Andres
+          Hidalgo Valeria
+
+Tema: Algoritmo A*  8-PUZZLE
+
+*/
+
+
 #include <iostream>
 #include "header.h"
+
+
 
 using namespace std;
 
 int main()
 {
-    int depth;
-	int rand_gen_initial_states = 1;
-	cout<<"Ingrese la profundidad: ";
-	cin>>depth;
+	srand ( time(NULL) );
+	//const string input_Arr[20] = {"413705826", "813402765", "246583017", "038145672",
+	//"301682475", "182043765", "301682475", "361285047", "261705834", "203714568", "501837264",
+	//"725368401", "157820643", "713248650", "274518306", "437165280", "452710836", "062537481", "804125376", "235107846"};
 
-	while(rand_gen_initial_states--) {
+    const string input_Arr[] = {"813402765"};
 
-		string input = "123456780";
+	int RandIndex = rand() % 1; //-----(3)
+    puzzle s(input_Arr[RandIndex]); //-----(4)
+
+		/*string input = "123456780";
 		random_shuffle(input.begin(), input.end());
-		puzzle s(input);
+		puzzle s(input);*/
 
 		cout<<endl<<"-----------------------------------------------------"<<endl;
-		cout<<"                       INTENTO "<<10-rand_gen_initial_states;
+		cout<<"Algoritmo A*  8-PUZZLE GRUPO 1 "<<endl;
 		cout<<endl<<"-----------------------------------------------------"<<endl;
-		cout<<"Initial State: "<<endl;
-		s.display();
+		cout<<" Estado Inicial: "<<endl;
+		s.desplegar();
 		cout<<endl;
-		cout<<endl<<"Profundidad 1 usando el recuento de errores de coincidencia: "<<endl;
-		aStar(s, 0, 1);
-		cout<<endl<<"Profundidad "<<depth<<" usando el recuento de errores de coincidencia: "<<endl;
-		aStar(s, 0, depth);
-		cout<<endl<<"Profundidad 1 usando la distancia de Manhattan: "<<endl;
-		aStar(s, 1, 1);
-		cout<<endl<<"Profundidad "<<depth<<" usando la distancia de Manhattan: "<<endl;
-		aStar(s, 1, depth);
+		cout<<endl<<"Solución 8 PUZZLE usando el Distmatch: "<<endl;
+		comenzar_8PUZZLE(s, 0, 1);
 
-	}
+		cout<<endl<<"Solución 8 PUZZLE usando la distancia de Manhattan: "<<endl;
+		comenzar_8PUZZLE(s, 1, 1);
+
+
 }
