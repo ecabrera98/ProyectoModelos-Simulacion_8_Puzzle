@@ -45,12 +45,12 @@ class puzzle {
 			return st;
 		}
 
-		int distancia_mismatch() {
+		int distancia_mismatch() {//aplicación del método recuento de errores
 			int count = 0;
-			string goal = "123456780";
-			string cur = to_string();
+			string est_objetivo = "123456780";
+			string aux_st = to_string();
 			for(int i=0; i<9; i++) {
-				if(cur[i] != '0' && goal[i] != cur[i]) {
+				if(aux_st[i] != '0' && est_objetivo[i] != aux_st[i]) {
 					count++;
 				}
 			}
@@ -189,12 +189,12 @@ void expandir_arbol(puzzle s, queue <puzzle> &colaFrontera) { //Utilización del
 	s.desplegar();
 }
 
-queue <puzzle> expasion_por_profundidad(puzzle s, int prof) {
-	queue <puzzle> temp1;
+queue <puzzle> expasion_por_profundidad(puzzle s, int prof) { //prof número de brazos desde la raíz del árbol hasta un nodo
+	queue <puzzle> temp1;// declaración de colas temporales para la expación de los nodos
 	expandir_arbol(s, temp1);
 	queue <puzzle> temp2(temp1);
 	queue <puzzle> temp3;
-	prof--;
+	prof--;// contador para ir disminuyendo de uno en uno el valor de la profundidad
 	while(prof>0) {
 		while(!temp2.empty()) {
 			puzzle c = temp2.front();
@@ -254,7 +254,7 @@ puzzle comenzar_8PUZZLE(puzzle s, int n, int prof) {//metodo principal del juego
 		s.desplegar();
     }
 
-	else{ //caso contrario seguimos buscándo hasta encontrarlo
+	else{ //caso contrario seguimos buscándo hasta encontrar el estado objetivo
 	   cout<<"Estado objetivo no alcanzado!"<<endl;
 		s.desplegar();
 	}
