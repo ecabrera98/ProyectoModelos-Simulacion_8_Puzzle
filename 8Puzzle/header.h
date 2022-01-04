@@ -88,7 +88,7 @@ class puzzle {
 		}
 
 		int funcion_n(int n) {//generación de la función f(n) = g(n) + h(n) mediante el uso de DistMatch y Distancia Manhathan
-			if(!n) {
+			if(n==0) {
 				f = 0;
 				int mismatch_dis = distancia_mismatch();
 				f = mismatch_dis + g;
@@ -224,7 +224,7 @@ puzzle comenzar_8PUZZLE(puzzle s, int n, int prof) {//metodo principal del juego
 	visitados.insert(s.to_string());
 	frontera = priority_queue <puzzle>();
 
-	//realizamos operaciones del algoritmo A* mientras el tablero sea diferentes del estado objetivo
+	//realizamos operaciones del algoritmo A* mientras el tablero sea diferente del estado objetivo
 	while(!s.estado_objetivo()) {
 		queue <puzzle> aux_puzzle = expasion_por_profundidad(s, prof);
 		deque <puzzle> temp;
