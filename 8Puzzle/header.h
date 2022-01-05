@@ -191,7 +191,7 @@ void expandir_arbol(puzzle s, queue <puzzle> &colaFrontera) { //Utilización del
 
 queue <puzzle> expasion_por_profundidad(puzzle s, int prof) { //prof número de brazos desde la raíz del árbol hasta un nodo
 	queue <puzzle> temp1;// declaración de colas temporales para la expación de los nodos
-	expandir_arbol(s, temp1);
+	expandir_arbol(s, temp1);//evaluación de posibles nodos para el estado actual
 	queue <puzzle> temp2(temp1);
 	queue <puzzle> temp3;
 	prof--;// contador para ir disminuyendo de uno en uno el valor de la profundidad
@@ -199,7 +199,7 @@ queue <puzzle> expasion_por_profundidad(puzzle s, int prof) { //prof número de 
 		while(!temp2.empty()) {
 			puzzle c = temp2.front();
 			temp2.pop();
-			expandir_arbol(c, temp3);
+			expandir_arbol(c, temp3);//evaluación de posibles nodos para el estado actual
 			queue <puzzle> temp4(temp3);
 			while(!temp4.empty()) {
 				temp1.push(temp4.front());
@@ -258,6 +258,7 @@ puzzle comenzar_8PUZZLE(puzzle s, int n) {//metodo principal del juego 8 PUZZLE
 	else{ //caso contrario seguimos buscándo hasta encontrar el estado objetivo
 	   cout<<"Estado objetivo no alcanzado!"<<endl;
 		s.desplegar();
+		//sumar mejores fn, imprimir algoritmo y gn
 	}
 
 
