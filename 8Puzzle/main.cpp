@@ -50,11 +50,11 @@ int main()
 
 		     if(op==1){
 		        cout<<endl<<"Solución 8 PUZZLE usando Distmatch: "<<endl;
-		        comenzar_8PUZZLE(s, 0, 1);
+		        comenzar_8PUZZLE(s, 0);
 		     }
 		     else if(op==2){
                   cout<<endl<<"Solución 8 PUZZLE usando la Distancia Manhattan: "<<endl;
-		          comenzar_8PUZZLE(s, 1, 1);
+		          comenzar_8PUZZLE(s, 1);
 		     }
 		     else
 		     exit(0);

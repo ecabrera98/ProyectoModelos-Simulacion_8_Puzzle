@@ -215,9 +215,10 @@ queue <puzzle> expasion_por_profundidad(puzzle s, int prof) { //prof número de 
 	return temp1;
 }
 
-puzzle comenzar_8PUZZLE(puzzle s, int n, int prof) {//metodo principal del juego 8 PUZZLE
+puzzle comenzar_8PUZZLE(puzzle s, int n) {//metodo principal del juego 8 PUZZLE
 	//inicializamos las variables
 	m = 0;
+    int prof=10;
 	no_nodos = 0;
 	s.initialiciar_f_g();
 	visitados.clear();
