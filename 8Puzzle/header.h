@@ -258,7 +258,7 @@ puzzle comenzar_8PUZZLE(puzzle s, int n) {//metodo principal del juego 8 PUZZLE
 	else{ //caso contrario seguimos buscándo hasta encontrar el estado objetivo
 	   cout<<"Estado objetivo no alcanzado!"<<endl;
 		s.desplegar();
-		//sumar mejores fn, imprimir algoritmo y gn
+		//sumar mejores fn, imprimir algoritmo(distmatch o manhattan) y gn
 	}
 
 
