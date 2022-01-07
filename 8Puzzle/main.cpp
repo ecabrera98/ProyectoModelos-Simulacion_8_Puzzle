@@ -8,14 +8,13 @@ Autores:  Cabrera Edison
           Gallardo Erick
           Garcia Andres
           Hidalgo Valeria
-
 Tema: Algoritmo A*  8-PUZZLE
-
 */
 
 
 #include <iostream>
 #include "header.h"
+#include "time.h"
 
 using namespace std;
 
@@ -62,3 +61,4 @@ int main()
 
 		return 0;
 }
+
