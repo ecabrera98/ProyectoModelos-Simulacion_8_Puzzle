@@ -91,11 +91,19 @@ class puzzle {
 			if(n==0) {
 				f = 0;
 				int mismatch_dis = distancia_mismatch();
+				cout<<"--------------------------"<<endl;
+				cout<<"h(n): "<<mismatch_dis<<"\n"<<endl;
+				cout<<"g(n): "<<g<<"\n"<<endl;
+				cout<<"--------------------------"<<endl;
 				f = mismatch_dis + g;
 			}
 			else {
 				f = 0;
 				int manh_distancia = distancia_manhattan();
+				cout<<"--------------------------"<<endl;
+				cout<<"h(n): "<<manh_distancia<<"\n"<<endl;
+				cout<<"g(n): "<<g<<"\n"<<endl;
+				cout<<"--------------------------"<<endl;
 				f = manh_distancia + g;
 			}
 			return f;
