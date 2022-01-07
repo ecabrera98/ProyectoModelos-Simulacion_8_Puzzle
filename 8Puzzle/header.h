@@ -189,33 +189,28 @@ void expandir_arbol(puzzle s, queue <puzzle> &colaFrontera) { //Utilización del
 }
 
 queue <puzzle> expasion_por_profundidad(puzzle s, int prof) { //prof número de brazos desde la raíz del árbol hasta un nodo
-	queue <puzzle> temp1;// declaración de colas temporales para la expación de los nodos
+	queue <puzzle> temp1;// declaración de una cola temporal para la expación de los nodos
 	expandir_arbol(s, temp1);//evaluación de posibles nodos para el estado actual
 
-	return temp1;
+	return temp1;//devolvemos la cola temporal generada
 }
 
 puzzle comenzar_8PUZZLE(puzzle s, int n) {//metodo principal del juego 8 PUZZLE
 	//inicializamos las variables
-	//m = 0;
-
 	int cont_estado_obj = 0;
 
-    int prof=10;
+    int prof=1;
 	no_nodos = 0;
 	s.initialiciar_f_g();
 	visitados.clear();
 	visitados.insert(s.to_string());
 	frontera = priority_queue <puzzle>();
 
-	//int iteraciones_max = 20;
 
 	//realizamos operaciones del algoritmo A* mientras el tablero sea diferente del estado objetivo
 	while(!s.estado_objetivo() ) {
 		queue <puzzle> aux_puzzle = expasion_por_profundidad(s, prof); //devuelve la cola frontera
 		deque <puzzle> temp;
-
-
 
 		cout<<"Estado Actual: "<<endl;  //impresión de los diferentes estados generados
         s.desplegar();
@@ -228,22 +223,13 @@ puzzle comenzar_8PUZZLE(puzzle s, int n) {//metodo principal del juego 8 PUZZLE
 			aux_puzzle.pop();
 		}
 
-
-
-
-
-
         cout<<"Opc ultima frontera--------"<<endl;
 		//calculo el f(n) para cada posibilidad
 		for(int i = 0; i < temp.size(); i++) {//recorrer los posibles movimientos
-			temp[i].funcion_n(n);//calculo el fn
+			temp[i].funcion_n(n);//calculo el fn de cada posible nodo
 			temp[i].desplegar();//imprimo todas las opciones de la última frontera
 			cout<<"f(n): "<<temp[i].f<<"\n"<<endl;
-			frontera.push(temp[i]);
-			/*if(frontera.size() > m) {
-				m = frontera.size();
-			}
-			*/
+			frontera.push(temp[i]);//se realiza un push a la frontera con los nodos ya evaluados
 		}
 		 cout<<"--------------------------"<<endl;
 
@@ -255,10 +241,8 @@ puzzle comenzar_8PUZZLE(puzzle s, int n) {//metodo principal del juego 8 PUZZLE
 		else break;
 		cout<<"Mejor f(n): "<<s.f<<endl; //imprimimos el mejor f(n) encontrado
 		cont_estado_obj = cont_estado_obj + s.f;
-		cout<<"f(n) Acumulado: "<<cont_estado_obj<<endl; //imprimimos el mejor f(n) encontrado
+		cout<<"f(n) Acumulado: "<<cont_estado_obj<<endl; //imprimimos el valor acumulado de los mejores f(n) encontrados
 		cout<<endl;
-
-		//iteraciones_max --;
 	}
 
 	if(s.estado_objetivo()){  //si ya se llega al estado objetivo "12345678" hemos ganado
@@ -266,16 +250,14 @@ puzzle comenzar_8PUZZLE(puzzle s, int n) {//metodo principal del juego 8 PUZZLE
 		s.desplegar();
     }
 
-	else{ //caso contrario seguimos buscándo hasta encontrar el estado objetivo
+	else{ //en caso de que nuestro estado inicial no tenga solución nos dirá que el estado objetivo no fue alcanzado
 	   cout<<"Estado objetivo no alcanzado!"<<endl;
 		s.desplegar();
-		//sumar mejores fn, imprimir algoritmo(distmatch o manhattan) y gn
 	}
-
-
-	cout<<"Número de estados : "<<m<<endl;
 	cout<<"Número de nodos: "<<no_nodos<<endl;
-	return s;
+	cout<<"f(n) Total: "<<cont_estado_obj<<endl; //imprimimos el valor acumulado de los mejores f(n) encontrados
+    cout<<endl;
+    return s;
 }
 
 #endif // HEADER_INCLUDED
