@@ -31,7 +31,7 @@ class puzzle {
 		        }
 		        cout<<endl;
 		    }
-		    cout<<"\n";
+
 		}
 
 		string to_string() { //transformación de los elementos del 8 Puzzle en string, separando con 0 cada número del tablero
@@ -107,7 +107,7 @@ class puzzle {
 		}
 
 };
-
+//esta parte de aquí se encarga de ordenar la cola de prioridad
 bool operator<(const puzzle& p1, const puzzle& p2) { //operador booleano para los estados del 8 PUZZLE
                                                      //valida si un estado se aleja demasiado del estado objetivo
     return p1.f > p2.f;
@@ -185,39 +185,22 @@ void expandir_arbol(puzzle s, queue <puzzle> &colaFrontera) { //Utilización del
 			}
 		}
 	}
-	cout<<"Estado Actual: "<<endl;  //impresión de los diferentes estados generados
-	s.desplegar();
+	//
 }
 
 queue <puzzle> expasion_por_profundidad(puzzle s, int prof) { //prof número de brazos desde la raíz del árbol hasta un nodo
 	queue <puzzle> temp1;// declaración de colas temporales para la expación de los nodos
 	expandir_arbol(s, temp1);//evaluación de posibles nodos para el estado actual
-	queue <puzzle> temp2(temp1);
-	queue <puzzle> temp3;
-	prof--;// contador para ir disminuyendo de uno en uno el valor de la profundidad
-	while(prof>0) {
-		while(!temp2.empty()) {
-			puzzle c = temp2.front();
-			temp2.pop();
-			expandir_arbol(c, temp3);//evaluación de posibles nodos para el estado actual
-			queue <puzzle> temp4(temp3);
-			while(!temp4.empty()) {
-				temp1.push(temp4.front());
-				temp4.pop();
-			}
-		}
-		prof--;
-		while(!temp3.empty()) {
-			temp2.push(temp3.front());
-			temp3.pop();
-		}
-	}
+
 	return temp1;
 }
 
 puzzle comenzar_8PUZZLE(puzzle s, int n) {//metodo principal del juego 8 PUZZLE
 	//inicializamos las variables
-	m = 0;
+	//m = 0;
+
+	int cont_estado_obj = 0;
+
     int prof=10;
 	no_nodos = 0;
 	s.initialiciar_f_g();
@@ -225,31 +208,59 @@ puzzle comenzar_8PUZZLE(puzzle s, int n) {//metodo principal del juego 8 PUZZLE
 	visitados.insert(s.to_string());
 	frontera = priority_queue <puzzle>();
 
+	//int iteraciones_max = 20;
+
 	//realizamos operaciones del algoritmo A* mientras el tablero sea diferente del estado objetivo
-	while(!s.estado_objetivo()) {
-		queue <puzzle> aux_puzzle = expasion_por_profundidad(s, prof);
+	while(!s.estado_objetivo() ) {
+		queue <puzzle> aux_puzzle = expasion_por_profundidad(s, prof); //devuelve la cola frontera
 		deque <puzzle> temp;
+
+
+
+		cout<<"Estado Actual: "<<endl;  //impresión de los diferentes estados generados
+        s.desplegar();
+        cout<<"---------------------"<<endl;  //impresión de los diferentes estados generados
+
+
+		//pongo los resultados de la cola frontera al final
 		while(!aux_puzzle.empty()) {
 			temp.push_back(aux_puzzle.front());
 			aux_puzzle.pop();
 		}
+
+
+
+
+
+
+        cout<<"Opc ultima frontera--------"<<endl;
+		//calculo el f(n) para cada posibilidad
 		for(int i = 0; i < temp.size(); i++) {//recorrer los posibles movimientos
-			temp[i].funcion_n(n);
-			cout<<"f(n): "<<temp[i].funcion_n(n)<<endl;
-		    cout<<endl;
+			temp[i].funcion_n(n);//calculo el fn
+			temp[i].desplegar();//imprimo todas las opciones de la última frontera
+			cout<<"f(n): "<<temp[i].f<<"\n"<<endl;
 			frontera.push(temp[i]);
-			if(frontera.size() > m) {
+			/*if(frontera.size() > m) {
 				m = frontera.size();
 			}
+			*/
 		}
+		 cout<<"--------------------------"<<endl;
+
+
 		if(!frontera.empty()) {
 			s = frontera.top();//retornamos el valor más reciente de la frontera
 			frontera.pop();//asignamos ese valos a la frontera
 		}
 		else break;
-		cout<<"Mejor f(n): "<<s.funcion_n(n)<<endl; //imprimimos el mejor f(n) encontrado
+		cout<<"Mejor f(n): "<<s.f<<endl; //imprimimos el mejor f(n) encontrado
+		cont_estado_obj = cont_estado_obj + s.f;
+		cout<<"f(n) Acumulado: "<<cont_estado_obj<<endl; //imprimimos el mejor f(n) encontrado
 		cout<<endl;
+
+		//iteraciones_max --;
 	}
+
 	if(s.estado_objetivo()){  //si ya se llega al estado objetivo "12345678" hemos ganado
 		cout<<"Estado objetivo alcanzado!"<<endl;
 		s.desplegar();
