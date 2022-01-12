@@ -19,7 +19,7 @@ class puzzle {
 			int k=0;
 			for(int i=0; i<3; i++) {
 				for(int j=0; j<3; j++) {
-					p[i][j] = st[k++] - '0';
+					p[i][j] = st[k++] - '0'; //convirtiendo ese caracter en int
 				}
 			}
 		}
