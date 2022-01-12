@@ -34,7 +34,7 @@ class puzzle {
 
 		}
 
-		string to_string() { //transformación de los elementos del 8 Puzzle en string, separando con 0 cada número del tablero
+		string to_string() { //transformación de los elementos del 8 Puzzle en string
 		    string st = "123456780";
 		    int k=0;
 		    for(int i=0; i<3; i++) {
