@@ -137,13 +137,21 @@ bool isValid(int i, int j) {//validacion de las posiciones de la matriz
 		return 0;
 }
 
+
 puzzle movimientos(puzzle s, int i1, int j1, int i2, int j2) {//función auxiliar para los movimientos de los elementos del tablero
+
+	//index1 --> pos actual
+	//index2 --> pos futura
+	
 	string st = s.to_string();
 	int index1 = i1*3+j1, index2 = i2*3+j2;
+	
 	char temp_char = st[index1];
 	st[index1] = st[index2];
 	st[index2] = temp_char;
+	
 	puzzle new_puz(st);
+	
 	return new_puz;
 }
 
