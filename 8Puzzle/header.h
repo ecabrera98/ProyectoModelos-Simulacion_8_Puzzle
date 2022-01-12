@@ -155,52 +155,73 @@ puzzle movimientos(puzzle s, int i1, int j1, int i2, int j2) {//función auxilia
 	return new_puz;
 }
 
+int *get_idx_cero(puzzle s)
+    {
+        //devuelve array con la posicion ij del 0
+        static int pos_cero[2] = {-1,-1};
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (s.p[i][j] == 0)
+                {
+                    pos_cero[0] = i;
+                    pos_cero[1] = j;
+                    return pos_cero;
+                }
+            }
+
+        }
+
+        return pos_cero;
+    }
+
 void expandir_arbol(puzzle s, queue <puzzle> &colaFrontera) { //Utilización del algoritmo A *, el cual realiza
                                                               //un seguimiento de cada nodo visitado,
+//consigo la posicion del 0
+    int * pos_0_ij = get_idx_cero(s);
+    int i = *(pos_0_ij);
+    int j = *(pos_0_ij + 1);
                                                               //ignorando los nodos que ya se visitaron,
-	for(int i=0; i<3; i++) {
-		for(int j=0; j<3; j++) {
-			if(s.p[i][j] == 0) {
-				if(isValid(i-1, j)) { //moverse  una posición a la izquierda
-					puzzle aux_puz = movimientos(s, i, j, i-1, j);
-					if(visitados.find(aux_puz.to_string()) == visitados.end()) {
-						visitados.insert(aux_puz.to_string());
-						aux_puz.g++;
-						no_nodos++;
-						colaFrontera.push(aux_puz);
-					}
-				}
-				if(isValid(i+1, j)) { //moverse  una posición a la derecha
-					puzzle aux_puz = movimientos(s, i, j, i+1, j);
-					if(visitados.find(aux_puz.to_string()) == visitados.end()) {
-						visitados.insert(aux_puz.to_string());
-						aux_puz.g++;
-						no_nodos++;
-						colaFrontera.push(aux_puz);
-					}
-				}
-				if(isValid(i, j-1)) {//moverse una posición hacia abajo
-					puzzle aux_puz = movimientos(s, i, j, i, j-1);
-					if(visitados.find(aux_puz.to_string()) == visitados.end()) {
-						visitados.insert(aux_puz.to_string());
-						aux_puz.g++;
-						no_nodos++;
-						colaFrontera.push(aux_puz);
-					}
-				}
-				if(isValid(i, j+1)) {//moverse una posición hacia arriba
-					puzzle aux_puz = movimientos(s, i, j, i, j+1);
-					if(visitados.find(aux_puz.to_string()) == visitados.end()) {
-						visitados.insert(aux_puz.to_string());
-						aux_puz.g++;
-						no_nodos++;
-						colaFrontera.push(aux_puz);
-					}
-				}
 
-			}
-		}
-	}
+    if(isValid(i-1, j)) { //moverse  una posición a la izquierda
+        puzzle aux_puz = movimientos(s, i, j, i-1, j);
+		if(visitados.find(aux_puz.to_string()) == visitados.end()) {
+            visitados.insert(aux_puz.to_string());
+			aux_puz.g++;
+			no_nodos++;
+			colaFrontera.push(aux_puz);
+        }
+    }
+	if(isValid(i+1, j)) { //moverse  una posición a la derecha
+        puzzle aux_puz = movimientos(s, i, j, i+1, j);
+		if(visitados.find(aux_puz.to_string()) == visitados.end()) {
+            visitados.insert(aux_puz.to_string());
+			aux_puz.g++;
+			no_nodos++;
+			colaFrontera.push(aux_puz);
+        }
+    }
+	if(isValid(i, j-1)) {//moverse una posición hacia abajo
+        puzzle aux_puz = movimientos(s, i, j, i, j-1);
+		if(visitados.find(aux_puz.to_string()) == visitados.end()) {
+            visitados.insert(aux_puz.to_string());
+			aux_puz.g++;
+			no_nodos++;
+			colaFrontera.push(aux_puz);
+        }
+    }
+	if(isValid(i, j+1)) {//moverse una posición hacia arriba
+        puzzle aux_puz = movimientos(s, i, j, i, j+1);
+		if(visitados.find(aux_puz.to_string()) == visitados.end()) {
+            visitados.insert(aux_puz.to_string());
+            aux_puz.g++;
+			no_nodos++;
+			colaFrontera.push(aux_puz);
+        }
+    }
+
 	//
 }
 
