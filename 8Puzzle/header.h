@@ -12,10 +12,10 @@ class puzzle {
 		int p[3][3];//generación de la matriz de 3 x 3 necesaria para 8 PUZZLE
 		int f, g; //generación de las funciones f(n) y g(n)
 
-		puzzle(string st) { //generación del tablero 8 PUZZLE
+		puzzle(string st, int g_anterior) { //generación del tablero 8 PUZZLE
 		                    //mediante el uso de un string en una matriz (PUZZLE)
 			f = 0;
-			g = 0;
+			g = g_anterior;
 			int k=0;
 			for(int i=0; i<3; i++) {
 				for(int j=0; j<3; j++) {
@@ -58,8 +58,8 @@ class puzzle {
 		}
 
 		int distancia_manhattan() {//aplicacion del método de la Distancia Manhattan
-                                   //métrica de distancia entre dos puntos en un espacio vectorial de dimensión N
-                                   //es la suma de la diferencia absoluta entre las medidas en todas las dimensiones de dos puntos
+                                   //suma de la diferencia absoluta entre las medidas de dos posiciones recorriendo
+                                   //todas las posiciones
 			int dist = 0;
 			for(int i=0; i<3; i++) {
 				for(int j=0; j<3; j++) {
@@ -92,8 +92,9 @@ class puzzle {
 				f = 0;
 				int mismatch_dis = distancia_mismatch();
 				cout<<"--------------------------"<<endl;
-				cout<<"h(n): "<<mismatch_dis<<"\n"<<endl;
 				cout<<"g(n): "<<g<<"\n"<<endl;
+				cout<<"--------------------------"<<endl;
+				cout<<"h(n): "<<mismatch_dis<<"\n"<<endl;
 				cout<<"--------------------------"<<endl;
 				f = mismatch_dis + g;
 			}
@@ -101,8 +102,9 @@ class puzzle {
 				f = 0;
 				int manh_distancia = distancia_manhattan();
 				cout<<"--------------------------"<<endl;
-				cout<<"h(n): "<<manh_distancia<<"\n"<<endl;
 				cout<<"g(n): "<<g<<"\n"<<endl;
+				cout<<"--------------------------"<<endl;
+				cout<<"h(n): "<<manh_distancia<<"\n"<<endl;
 				cout<<"--------------------------"<<endl;
 				f = manh_distancia + g;
 			}
@@ -142,22 +144,20 @@ puzzle movimientos(puzzle s, int i1, int j1, int i2, int j2) {//función auxilia
 
 	//index1 --> pos actual
 	//index2 --> pos futura
-	
+
 	string st = s.to_string();
 	int index1 = i1*3+j1, index2 = i2*3+j2;
-	
+
 	char temp_char = st[index1];
 	st[index1] = st[index2];
 	st[index2] = temp_char;
-	
-	puzzle new_puz(st);
-	
+
+	puzzle new_puz(st,s.g);
+
 	return new_puz;
 }
 
-int *get_idx_cero(puzzle s)
-    {
-        //devuelve array con la posicion ij del 0
+int *get_idx_cero(puzzle s){//devuelve array con la posicion ij del 0
         static int pos_cero[2] = {-1,-1};
 
         for (int i = 0; i < 3; i++)
@@ -185,17 +185,15 @@ void expandir_arbol(puzzle s, queue <puzzle> &colaFrontera) { //Utilización del
     int j = *(pos_0_ij + 1);
                                                               //ignorando los nodos que ya se visitaron,
 
-	
 //vistados.find() -> if encuentra : devuelve el puntero del objeto que encontró
 // else: devuelve un puntero que apunta a visitados.end()
-
 
     if(isValid(i-1, j)) { //moverse  una posición a la izquierda
         puzzle aux_puz = movimientos(s, i, j, i-1, j);
 		if(visitados.find(aux_puz.to_string()) == visitados.end()) {// si es que no haz visitado
             visitados.insert(aux_puz.to_string());
-			aux_puz.g++;
-			no_nodos++;
+			aux_puz.g++;//aumentar en uno g(n)
+			no_nodos++;//contabilizar numero de nodos
 			colaFrontera.push(aux_puz);
         }
     }
@@ -226,8 +224,6 @@ void expandir_arbol(puzzle s, queue <puzzle> &colaFrontera) { //Utilización del
 			colaFrontera.push(aux_puz);
         }
     }
-
-	//
 }
 
 queue <puzzle> expasion_por_profundidad(puzzle s, int prof) { //prof número de brazos desde la raíz del árbol hasta un nodo
@@ -241,7 +237,7 @@ puzzle comenzar_8PUZZLE(puzzle s, int n) {//metodo principal del juego 8 PUZZLE
 	//inicializamos las variables
 	int cont_estado_obj = 0;
 
-    int prof=1;
+    int prof=20;
 	no_nodos = 0;
 	s.initialiciar_f_g();
 	visitados.clear();
