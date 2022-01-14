@@ -16,12 +16,12 @@
 	<queue>
 	<unordered_set>
 
-1642124336 source:/home/edison/Documentos/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/main.cpp
+1642129388 source:/home/edison/Documentos/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/main.cpp
 	<iostream>
 	"header.h"
 	"time.h"
 
-1642124336 /home/edison/Documentos/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/header.h
+1642129470 /home/edison/Documentos/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/header.h
 	<queue>
 	<unordered_set>
 

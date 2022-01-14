@@ -87,7 +87,7 @@ class puzzle {
 			return 0;
 		}
 
-		int funcion_n(int n) {//generación de la función f(n) = g(n) + h(n) mediante el uso de DistMatch y Distancia Manhathan
+		int funcion_n(int n) {//generación de la función f(n) = g(n) + h(n) mediante el uso de MisMatch y Distancia Manhathan
 			if(n==0) {
 				f = 0;
 				int mismatch_dis = distancia_mismatch();
