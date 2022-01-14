@@ -39,12 +39,12 @@ int main()
 		     cout<<endl<<"-----------------------------------------------------"<<endl;
 		     cout<<"Estado Inicial: "<<endl;
 		     s.desplegar();
-		     cout<<"Distancia manhattan actual: "<<s.distancia_manhattan()<<endl;//calculo inicial del DistMatch
+		     cout<<"Distancia manhattan actual: "<<s.distancia_manhattan()<<endl;//calculo inicial del MisMatch
 		     cout<<"Distancia mismatch actual: "<<s.distancia_mismatch()<<endl;//caclculo inicial de la Distancia Manhattan
 
 		     cout<<endl<<"~~~~~~~~~~~~~~~~~~M E N U~~~~~~~~~~~~~~~~~~~~~~~~~ "<<endl;
 		     cout<<endl<<"Seleccione una opcion: "<<endl;
-		     cout<<"0: Ejecutar puzzle actual f(n) Distmatch "<<endl;
+		     cout<<"0: Ejecutar puzzle actual f(n) Mismatch "<<endl;
 		     cout<<"1: Ejecutar puzzle actual f(n) Distancia Manhattan"<<endl;
 		     cout<<"2: Cambiar puzzle actual"<<endl;
 		     cout<<"3: Cerrar programa"<<endl;
@@ -55,7 +55,7 @@ int main()
 
 		     switch (op){
                 case 0:
-                    cout<<endl<<"Solución 8 PUZZLE usando Distmatch: "<<endl;//utilizacion del metodo DistMatch
+                    cout<<endl<<"Solución 8 PUZZLE usando Mistmatch: "<<endl;//utilizacion del metodo DistMatch
                     comenzar_8PUZZLE(s, 0);
 
                     break;
