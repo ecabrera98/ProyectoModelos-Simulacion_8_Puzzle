@@ -8,11 +8,12 @@
 	<queue>
 	<unordered_set>
 
-1641351144 source:/home/edison/Documentos/EPN8VO/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/main.cpp
+1642129649 source:/home/edison/Documentos/EPN8VO/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/main.cpp
 	<iostream>
 	"header.h"
+	"time.h"
 
-1641351144 /home/edison/Documentos/EPN8VO/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/header.h
+1642129753 /home/edison/Documentos/EPN8VO/ProyectoModelos-Simulacion_8_Puzzle/8Puzzle/header.h
 	<queue>
 	<unordered_set>
 

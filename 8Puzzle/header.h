@@ -190,7 +190,7 @@ void expandir_arbol(puzzle s, queue <puzzle> &colaFrontera) { //Utilización del
 
     if(isValid(i-1, j)) { //moverse  una posición a la izquierda
         puzzle aux_puz = movimientos(s, i, j, i-1, j);
-		if(visitados.find(aux_puz.to_string()) == visitados.end()) {// si es que no haz visitado
+		if(visitados.find(aux_puz.to_string()) == visitados.end()) {// si es que no has visitado
             visitados.insert(aux_puz.to_string());
 			aux_puz.g++;//aumentar en uno g(n)
 			no_nodos++;//contabilizar numero de nodos
